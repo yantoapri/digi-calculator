@@ -24,5 +24,9 @@ workflows:
             -configuration Debug \
             build
 
+      - name: Find .app files
+        script: |
+          find $PWD -name "*.app" -print
+
     artifacts:
-      - build/**/*.app
+      - ~/Library/Developer/Xcode/DerivedData/**/Build/Products/Debug-iphonesimulator/*.app
