@@ -4,15 +4,14 @@ workflows:
     environment:
       xcode: latest
     scripts:
-      - name: Install CocoaPods (jika perlu)
+      - name: List available Xcode schemes
         script: |
-          cd ios
-          pod install || echo "No Podfile, skipping"
+          xcodebuild -list -project "Digi Calculator.xcodeproj"
 
       - name: Build iOS App
         script: |
-          xcodebuild -workspace DigiCalculator.xcodeproj \
-            -scheme DigiCalculator \
+          xcodebuild -project "Digi Calculator.xcodeproj" \
+            -scheme "Digi Calculator" \
             -sdk iphoneos \
             -configuration Release \
             build
