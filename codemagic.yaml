@@ -4,25 +4,25 @@ workflows:
     environment:
       xcode: latest
     scripts:
-      - name: Cari file xcodeproj
+      - name: Install CocoaPods dependencies
         script: |
-          echo "Daftar file .xcodeproj:"
-          find . -name "*.xcodeproj"
+          pod install || echo "No Podfile found, skipping"
 
       - name: List available schemes
         script: |
-          xcodebuild -list -project "$(find . -name "*.xcodeproj" | head -n 1)"
+          xcodebuild -list -project "Digi Calculator.xcodeproj"
 
-      - name: Build iOS App
+      - name: Build iOS App for Simulator (no signing)
         script: |
-          PROJECT=$(find . -name "*.xcodeproj" | head -n 1)
-          SCHEME="Digi Calculator" # ubah ini jika berbeda
-          xcodebuild -project "$PROJECT" \
-            -scheme "$SCHEME" \
-            -sdk iphoneos \
-            -configuration Release \
+          xcodebuild -project "Digi Calculator.xcodeproj" \
+            -scheme "Digi Calculator" \
+            -sdk iphonesimulator \
+            -configuration Debug \
             build
 
     artifacts:
-      - build/**/*.ipa
       - build/**/*.app
+
+    code_signing:
+      distribution_cert: null
+      provisioning_profile: null
