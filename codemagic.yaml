@@ -14,11 +14,11 @@ workflows:
 
       - name: List Schemes
         script: |
-          xcodebuild -list -project "Digi Calculator.xcodeproj"
+          xcodebuild -list -workspace "Digi Calculator.xcworkspace"
 
       - name: Build App for iOS Simulator
         script: |
-          xcodebuild -project "Digi Calculator.xcodeproj" \
+          xcodebuild -workspace "Digi Calculator.xcworkspace" \
             -scheme "Digi Calculator" \
             -sdk iphonesimulator \
             -configuration Debug \
