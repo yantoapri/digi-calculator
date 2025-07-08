@@ -30,3 +30,4 @@ workflows:
 
     artifacts:
       - ~/Library/Developer/Xcode/DerivedData/**/Build/Products/Debug-iphonesimulator/*.app
+      - build/**/*.ipa
