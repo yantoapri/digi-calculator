@@ -1,18 +1,22 @@
 workflows:
   ios-build:
-    name: Build iOS from PWABuilder
+    name: Build iOS for Simulator (no signing)
     environment:
       xcode: latest
     scripts:
-      - name: Install CocoaPods dependencies
+      - name: Install CocoaPods (jika perlu)
         script: |
-          pod install || echo "No Podfile found, skipping"
+          if [ -f "Podfile" ]; then
+            pod install
+          else
+            echo "Tidak ada Podfile, lewati install pod."
+          fi
 
-      - name: List available schemes
+      - name: List Schemes
         script: |
           xcodebuild -list -project "Digi Calculator.xcodeproj"
 
-      - name: Build iOS App for Simulator (no signing)
+      - name: Build App for iOS Simulator
         script: |
           xcodebuild -project "Digi Calculator.xcodeproj" \
             -scheme "Digi Calculator" \
@@ -22,7 +26,3 @@ workflows:
 
     artifacts:
       - build/**/*.app
-
-    code_signing:
-      distribution_cert: null
-      provisioning_profile: null
