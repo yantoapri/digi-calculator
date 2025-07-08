@@ -1,10 +1,10 @@
 workflows:
   ios-build:
-    name: Build iOS App
+    name: Build iOS from PWABuilder
     environment:
       xcode: latest
     scripts:
-      - name: List available Xcode schemes
+      - name: List available schemes
         script: |
           xcodebuild -list -project "Digi Calculator.xcodeproj"
 
@@ -17,5 +17,5 @@ workflows:
             build
 
     artifacts:
-      - build/ios/Release-iphoneos/*.app
-      - build/ios/Release-iphoneos/*.ipa
+      - build/**/*.ipa
+      - build/**/*.app
