@@ -1,0 +1,22 @@
+workflows:
+  ios-build:
+    name: Build iOS App
+    environment:
+      xcode: latest
+    scripts:
+      - name: Install CocoaPods (jika perlu)
+        script: |
+          cd ios
+          pod install || echo "No Podfile, skipping"
+
+      - name: Build iOS App
+        script: |
+          xcodebuild -workspace DigiCalculator.xcodeproj \
+            -scheme DigiCalculator \
+            -sdk iphoneos \
+            -configuration Release \
+            build
+
+    artifacts:
+      - build/ios/Release-iphoneos/*.app
+      - build/ios/Release-iphoneos/*.ipa
